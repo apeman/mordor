@@ -1,0 +1,183 @@
+ {{define "header"}}
+  <header>
+	<h2>
+		<a href="/">&#8458;&#8464;&#8497;</a>
+	</h2>
+	<section class="formcon">
+		<form method="GET" class="homeform" action="/search">
+			<div class="d3 " style="width:100%; ">
+				<input type="text" class="search-field" placeholder="Finds anything" name="srch">
+				<label class="search-btn">
+				<input type="submit" style="display:none">
+				<svg class="srchicon" viewBox="0 0 24 24" width="100%" height="100%" role="img" stroke="#000000">
+					<circle cx="11" cy="11" r="8"></circle>
+					<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+				</svg>
+			</label>
+		</div>
+	</form>
+</section>
+	<span class="thumb"></span>
+  </header>
+  
+      <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: 400;
+            line-height: 1.6;
+            background: #000;
+            padding: 0;
+			max-width: 95%;
+			margin: 0 auto;
+        }
+
+        * {
+            box-sizing: border-box;
+            vertical-align: baseline;
+        }
+
+
+        body::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: #555;
+        }
+    </style>
+	<style>
+    
+.search-btn {
+    height: 2.3rem;
+    width: 3rem;
+    padding: 0.3rem 0.6rem;
+    background-color: #ffffff00;
+    border: none;
+    outline: none;
+    border-radius: 0 6px 6px 0;
+    display: flex;
+    border-left: 1px solid #f3f3f3;
+    align-items: center;
+}
+.search-field {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 0px;
+    outline: none;
+    padding: 0rem 0.6rem;
+    background: transparent;
+    height: 2.5rem;
+    color: #fff;
+    font-size: 1rem;
+    width: 100%;
+}
+.d3 {
+    display: flex;
+    background: #000;
+    border: 1px solid #797979;
+    max-width: 550px;
+    align-items: center;
+    border-radius: 6px;
+    /* box-shadow: rgb(0 0 0 / 20%) 0 2px 12px 0; */
+}
+.homeform {
+    max-width: 350px;
+    width: 100%;
+    margin: 0;
+}
+.formcon {
+    max-width: 350px;
+    width: 100%;
+}
+.srchicon {
+    stroke-width: 1.4;
+    border-radius: 5px;
+    width: 2.4rem;
+    height: 2.4rem;
+    fill: none;
+    stroke: #fff;
+    box-shadow: none;
+    display: block;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: .2s ease;
+}
+header {
+    position: relative;
+    top: 0;
+    left: 0;
+	height: 54px;
+/*    box-shadow: 0 0 15px #00000030;
+    box-shadow: 0 8px 16px 0 rgb(214 214 214 / 20%), 0 8px 40px 0 rgb(179 179 179 / 19%);*/
+    z-index: 10;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	background: linear-gradient(90deg, black 0%, #7a7a7a 50%, black);
+    padding: 0;
+	max-width: 98%;
+	margin: 0 auto;
+}
+.thumb:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    content: '';
+}
+.thumb {
+    position: relative;
+    min-width: 2.6rem;
+    min-height: 2.6rem;
+    border-radius: 50%;
+}
+.thumb {
+    background-image: url(/userpic/userpic.png);
+    background-size: cover;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+}
+a {
+    text-decoration: none;
+    color: #202124;
+}
+a, input, textarea, select, button {
+    outline: 0;
+}
+body, p, td, label, textarea, a, li, input, button, textarea, select {
+    font-family: 'Breezesans', arial, sans-serif;
+    color: #fff;
+    -webkit-text-size-adjust: none;
+}
+input, button {
+	background: linear-gradient(90deg, #5a5a5a 0%, #444 50%, #5a5a5a);
+}
+footer {
+		max-width: 800px;
+		text-align: center;
+		margin: 0 auto;
+    }
+@media screen and (max-width: 600px) {
+    .formcon {
+	padding : 0 1rem;
+    }
+    }
+    
+    @media screen and (max-width: 1199px) and (min-width: 601px) {
+    .formcon {
+	padding : 0 2rem;
+    }
+    }
+    
+    @media screen and (min-width: 1200px) {
+    
+    .formcon {
+    }
+    }
+	
+</style>
+{{end}}

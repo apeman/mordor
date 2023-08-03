@@ -1,0 +1,95 @@
+{{define "main"}}
+  <main>
+		<form class="upform" enctype="multipart/form-data"  method="POST" action="/upload" >
+		<input type="file" name="imgfile" id="myFile" multiple size="10" onchange="myFunction()" accept="video/*">
+		<input type="submit" value="Submit"/>
+		<p><strong>Tip:</strong> Use the Control or the Shift key to select multiple files.</p>
+		<span id="filewarning"></span>
+	</form>
+		<div class="previewContainer" id="demo"></div>
+		
+<script>
+function myFunction(){
+  var x = document.getElementById("myFile");  
+  var txt = "";
+  if ('files' in x) {
+    if (x.files.length == 0) {
+      txt = "Select one or more files.";
+    } else {
+      for (var i = 0; i < x.files.length; i++) {
+        txt += "<article class='filePreviewCon'><section class='filedesc' ><br><strong>" + (i+1) + ". file</strong><br>";
+        var file = x.files[i];
+        if ('name' in file) {
+          txt += "name: " + file.name + "<br>";
+        }
+        if ('size' in file) {
+		if (file.size > 8*1024*1024) {
+			window.alert("Size too big, select file smaller than 10 MB");
+			x.files.splice(i, 1);
+		} else {
+			txt += "size: " + formatBytes(file.size) + " bytes <br></section><video onmouseover='this.play();' onmouseout='this.pause();' onclick='playMe(this)' class='previewImg' src='"+ URL.createObjectURL(file) +"'></video></article>";
+		  }
+        }
+      }
+    }
+  } 
+  else {
+    if (x.value == "") {
+      txt += "Select one or more files.";
+    } else {
+      txt += "The files property is not supported by your browser!";
+      txt  += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
+    }
+  }
+	document.getElementById("demo").innerHTML = txt;
+}
+
+function formatBytes(a,b=2){if(!+a)return"0 Bytes";const c=0>b?0:b,d=Math.floor(Math.log(a)/Math.log(1024));return`${parseFloat((a/Math.pow(1024,d)).toFixed(c))} ${["Bytes","KiB","MiB","GiB","TiB","PiB","EiB","ZiB","YiB"][d]}`}
+</script>
+<script>
+function playMe(video) {
+//    video.play();
+	                    if (video.paused) {   // play the file, and display pause symbol 
+                        video.play(); 
+                        button.textContent = "||"; 
+                    } else {              // pause the file, and display play symbol   
+                        video.pause(); 
+                        button.textContent = ">"; 
+                    } 
+}
+</script>
+<style>
+.previewImg {
+	max-width: 250px;
+	max-height: 250px;
+	text-align: center;
+}
+.previewContainer {
+	max-width: 800px;
+	text-align: left;
+	margin: 0 auto;
+}
+.filePreviewCon {
+    justify-content: space-between;
+    display: flex;
+    margin: 1rem auto;
+    border: 1px solid #333;
+}
+main {
+	max-width: 1000px;
+	margin: 0 auto;
+}
+.upform {
+    max-width: 800px;
+    padding: 1rem;
+    margin: 1rem auto;
+    background: whitesmoke;
+    text-align: center;
+}
+.filedesc {
+	padding : 1rem;
+	
+}
+</style>
+  </main>
+{{end}}

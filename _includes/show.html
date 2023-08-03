@@ -1,0 +1,289 @@
+<!DOCTYPE HTML>
+
+<html>
+{{template "header"}}
+<style>
+     
+html {
+	box-sizing: border-box
+}
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+     button {
+         font-size: 1.2rem;
+         background-color: #fff0;
+         border: 1px solid #aaa;
+         border-radius: 4px;
+     }
+     .sqrBtn {
+         width: 34px;
+         height: 34px;
+         margin: 3px;
+     }
+     .buttonWidth, input {
+        height: 34px;
+     }
+#buttonbar {
+    position: fixed;
+    top: 0;
+}
+.hvideo {
+	height: 82vh;
+	margin: 0 auto;
+    width: inherit;
+}
+.formfill {
+    position: fixed;
+    bottom: 0;
+}
+header h2 {
+	margin: 0.8rem 0;
+}
+main {
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+	flex-direction: column;
+    position: relative;
+    justify-content: center;
+    max-width: 1100px;
+}
+	.overly {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#status {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+}
+
+.saveBtn {
+    width: 68px;
+    height: 34px;
+    margin: 3px;
+}
+.bld {
+	mix-blend-mode: difference;
+	background: #fff;
+}
+ </style>
+    </head> 
+    <body>         
+     
+		<main>
+			<video id="mainVid" autoplay  onclick='playMe(this)' width="320" height="480" preload="metadata" loop poster="#" class="hvideo">
+				<source src="/files/{{.}}.mp4#t=0.01" type="video/mp4">
+				<source src="/files/{{.}}.webm#t=0.01" type="video/webm">
+				Your browser does not support the video tag.
+			</video>
+			<div onclick='playMe()' class="overly"></div>
+			<div id="status" >
+				<span id="curSpeed"></span><br>
+				<span id="curTime" class="afters" title="Current time"></span> / <span class="afters" id="vLen"></span><!-- <br />
+				Remaining time: <span id="vRemaining" title="Remaining time"></span>-->
+			</div>
+		</main>
+		<div class="buttonbar">
+        <button  onclick='slower()' id="slower" class="sqrBtn" title="Slower playback">&#10134;</button>  
+        <button  onclick='resetSpeed()' id="normal" class="sqrBtn" title="Reset playback rate">&#9868;</button> 
+        <button  onclick='faster()' id="faster" class="sqrBtn" title="Faster playback">&#10133;</button> 
+		<button class="sqrBtn" id="mute" title="Mute button" >&#128263;</button> 
+		<!--button class="sqrBtn" id="report" title="Report" >&#9872;</button>
+		<form id="panda" method="post">
+			<input class="saveBtn" type="button" onclick='AddToColl("saved",{{.}})' value="Save"/>
+		</form-->
+		</div>
+		        <br />
+		
+		<!--&#10008;-->
+		<!--&#10004;-->
+		<style>
+		.afters:after {
+    content: 's';
+    margin-left: 0.1rem;
+    margin-right: 0.3rem;
+}
+			.playBtn {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background: #ffffff00;
+    top: 0;
+    bottom: 0;
+    left: 0;
+	border: none;
+    right: 0;
+}
+.buttonbar {
+    position: fixed;
+    bottom: 1rem;
+    left: 0;
+    display: flex;
+    width: fit-content;
+    right: 0;
+    justify-content: center;
+    background: #fff0;
+    margin: 0 auto;
+}
+		</style>
+		
+     <!--script>
+		window.addEventListener('contextmenu', (event) => {event.preventDefault();alert('mouse right-click is prevented');});
+     </script-->
+     <script>
+		var angle = 0;
+		var flip = false;
+		var blend = false;
+	 window.addEventListener("keypress", function(e) {
+		vidd = document.getElementsByTagName("video")[0];
+		if(e.key==="c" && vidd.playbackRate < 3.0) {
+			vidd.playbackRate += .25; 
+			document.getElementById("curSpeed").textContent = parseFloat(vidd.playbackRate).toFixed(2);
+		};
+		if(e.key==="x") {
+			vidd.playbackRate = 1;
+			document.getElementById("curSpeed").textContent = parseFloat(vidd.playbackRate).toFixed(2);
+		};
+		if(e.key==="z" && vidd.playbackRate > 0.25) {
+			try{vidd.playbackRate -= .25;} catch(err){vidd.playbackRate = 0.25}
+			document.getElementById("curSpeed").textContent = parseFloat(vidd.playbackRate).toFixed(2);
+		};
+		if(e.key==="r") {
+			if (angle != 360) {
+				angle = angle+90; 
+				vid = document.getElementsByTagName("video")[0];
+				vdsclX = vid.videoHeight/vid.videoWidth;
+				vdsclY = vid.videoWidth/vid.videoHeight;
+				vdscale = Math.min(vdsclX, vdsclY);
+				vid.style.transform = "rotate("+ angle +"deg) scale("+ vdscale +")";
+			} 
+			if (angle == 360) {
+				angle = 0;
+				document.getElementsByTagName("video")[0].style.transform = "rotate(0deg) scale(1)";
+			}
+			if (angle == 180) {
+				angle = 180;
+				document.getElementsByTagName("video")[0].style.transform = "rotate(180deg) scale(1)";
+			}
+		};
+		if(e.key==="h") {
+			if (!flip) { 
+				document.getElementsByTagName("video")[0].style.transform = "scaleX(-1)";
+				flip = true; 
+			} else { 
+				document.getElementsByTagName("video")[0].style.transform = "scaleX(1)";
+				flip = false; 
+			}
+		};}, false);
+
+
+
+     </script>
+	 
+     <script>/*
+document
+  .getElementById("to_focus")
+  .addEventListener("keydown", function(event) {
+    if (event.ctrlKey && event.key === "z") {
+      // Do Something, may be an 'Undo' operation
+    }
+});
+*/
+var video = document.getElementById('mainVid');
+
+document.onkeypress = function(e) {
+    if ( (e || window.event).keyCode === 32 /* enter key */ ) {
+        video.paused ? video.play() : video.pause();
+    }
+};
+
+     </script>
+	 
+     <script>
+	 var video = document.getElementById("mainVid");
+		video.muted = true;
+		function playMe() {
+                   if (video.paused) {   // play the file, and display pause symbol 
+                       video.play(); 
+                   } else {              // pause the file, and display play symbol   
+			video.pause(); 
+                   } 
+}
+function slower() {
+	video.playbackRate -= .15; 
+}
+function faster() {
+	video.playbackRate += .15; 
+}
+function resetSpeed() {
+	video.playbackRate = 1; 
+}
+function mute() {
+	if (video.muted) { 
+		video.muted = false; 
+	} else { 
+		video.muted = true; 
+	} 
+}
+          document.getElementById("mute").addEventListener("click", function (evt) {
+            if (video.muted) {
+              video.muted = false;
+            } else {
+              video.muted = true;
+            }
+          }, false);
+          video.addEventListener("volumechange", function () {
+            if (video.muted) {
+              // if muted, show mute image
+              document.getElementById("mute").innerHTML = "&#128263;";
+            } else {
+              // if not muted, show not muted image
+              document.getElementById("mute").innerHTML = "&#128266;";
+            }
+          }, false);
+          //  any video error will fail with message 
+          video.addEventListener("error", function (err) {
+            console.log(err);
+          }, true);
+          //  display video duration when available
+          video.addEventListener("loadedmetadata", function () {
+            vLength = video.duration.toFixed(1);
+            document.getElementById("vLen").textContent = vLength; // global variable
+          }, false);
+
+          //  display the current and remaining times
+          video.addEventListener("timeupdate", function () {
+            //  Current time  
+            var vTime = video.currentTime;
+            document.getElementById("curTime").textContent = vTime.toFixed(1);
+            /*document.getElementById("vRemaining").textContent = (vLength - vTime).toFixed(1);*/
+          }, false);
+
+</script>
+<script>
+
+function AddToColl(collName, gifname) {
+const a2c = new XMLHttpRequest();
+a2c.open("POST", "/addtocoll", true);
+a2c.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+a2c.onreadystatechange = () => {
+  if (a2c.readyState === XMLHttpRequest.DONE && a2c.status === 200) {
+	alert("done")
+  }
+};
+a2c.send("collection="+ collName +"&gifname="+ gifname);
+}
+</script>
+	</body>
+</html>
+
