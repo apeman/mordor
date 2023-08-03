@@ -8,7 +8,7 @@ import (
     "github.com/julienschmidt/httprouter"
 )
 
-const PORT = "10000"
+const PORT = ":10000"
 const maxUploadSize = 10 * 1024 * 1024 // 8 mb
 const uploadPath = "./uploads"
 var userpicPath = "./userpic"
