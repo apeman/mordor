@@ -16,7 +16,7 @@ import (
     "github.com/julienschmidt/httprouter"
 )
 
-const PORT = "5000"
+const PORT = ":10000"
 const maxUploadSize = 10 * 1024 * 1024 // 8 mb
 const uploadPath = "./uploads"
 var userpicPath = "./userpic"
@@ -46,7 +46,7 @@ func main() {
 	router.NotFound = static	
 
 	log.Print("Server started on localhost:4000")
-	log.Fatal(http.ListenAndServe(GetPort(), router))
+	log.Fatal(http.ListenAndServe(PORT, router))
 }
 
 func UploadFileHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
@@ -190,7 +190,7 @@ func randToken(len int) int64 {
 	n,_ := rand.Read(b)
 	return int64(n)
 }
-
+/*
  func GetPort() string {
  	var port = os.Getenv("PORT")
  	var env = os.Getenv("ENV")
@@ -203,7 +203,7 @@ func randToken(len int) int64 {
  	} else {
 		return ":" + port
 	}
-}
+}*/
 
 
 
