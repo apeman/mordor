@@ -1,12 +1,10 @@
  {{define "header"}}
   <header>
-	<h2>
-		<a href="/">&#8458;&#8464;&#8497;</a>
-	</h2>
+	<span class="thumb"></span>
 	<section class="formcon">
 		<form method="GET" class="homeform" action="/search">
 			<div class="d3 " style="width:100%; ">
-				<input type="text" class="search-field" placeholder="Finds anything" name="srch">
+				<input type="text" class="search-field" placeholder="Finds anything" name="srch" onfocusin="disableHotkeys()" onfocusout="enableHotkeys()">
 				<label class="search-btn">
 				<input type="submit" style="display:none">
 				<svg class="srchicon" viewBox="0 0 24 24" width="100%" height="100%" role="img" stroke="#000000">
@@ -17,7 +15,9 @@
 		</div>
 	</form>
 </section>
-	<span class="thumb"></span>
+	<h2>
+		<a href="/">Upload</a>
+	</h2>
   </header>
   
       <style>
@@ -156,6 +156,13 @@ body, p, td, label, textarea, a, li, input, button, textarea, select {
 input, button {
 	background: linear-gradient(90deg, #5a5a5a 0%, #444 50%, #5a5a5a);
 }
+h2 a {
+    color: black;
+    background: #8585ff;
+    font-size: 1.2rem;
+    padding: 0.4rem;
+    border-radius: 4px;
+}
 footer {
 		max-width: 800px;
 		text-align: center;
@@ -180,4 +187,6 @@ footer {
     }
 	
 </style>
+
+
 {{end}}
