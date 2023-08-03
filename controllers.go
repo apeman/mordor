@@ -157,22 +157,6 @@ func randToken(len int) int64 {
 	return int64(n)
 }
 
- func GetPort() string {
- 	var port = os.Getenv("PORT")
- 	var env = os.Getenv("ENV")
- 	if port == "" {
- 		port = "4000"
- 		fmt.Println("INFO: defaulting to " + port)
- 	}
- 	if env == "" {
-		return "localhost:" + port
- 	} else {
-		return ":" + port
-	}
-}
-
-
-
 
 func XHRrespond(w http.ResponseWriter, message string) {
 	fmt.Fprintf(w,message)
